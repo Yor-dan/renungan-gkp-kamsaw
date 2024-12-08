@@ -9,12 +9,15 @@ export default function BlogLayout({
     <div className="min-h-screen flex flex-col">
       <header className="bg-background border-b">
         <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-foreground">
+          <Link
+            href="/"
+            className="text-xl md:text-2xl font-bold text-foreground"
+          >
             GKP Kampung Sawah
           </Link>
           <Link
             href="/"
-            className="text-foreground hover:text-primary transition-colors"
+            className="text-foreground hover:text-primary transition-colors hidden md:inline-block"
           >
             Kembali ke beranda
           </Link>
