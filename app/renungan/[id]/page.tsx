@@ -4,6 +4,7 @@ import { sql } from '@vercel/postgres';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { formatDateToIndo } from '@/app/lib/utils';
+import { Quote } from '@/components/ui/quote';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -34,12 +35,21 @@ export default async function Renungan(props: Props) {
         </div>
       </div>
       <div className="w-full max-w-prose px-4 py-8">
+        {/* blog title */}
         <h1 className="text-4xl font-bold mb-4 text-foreground">
           {renungan.title}
         </h1>
+
+        {/* blog date */}
         <time className="md:text-base text-muted-foreground mb-8 block">
           {formatDateToIndo(renungan.date)}
         </time>
+
+        {renungan.verse && (
+          <Quote quote={renungan.verse} quote_ref={renungan.verse_ref} />
+        )}
+
+        {/* blog body */}
         <div className="prose prose-stone dark:prose-invert">
           {renungan.body
             .split('<br />')
