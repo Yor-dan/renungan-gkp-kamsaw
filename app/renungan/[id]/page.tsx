@@ -24,7 +24,7 @@ export default async function Renungan(props: Props) {
   return (
     <article className="min-h-screen bg-background flex flex-col items-center">
       <div className="w-full max-w-screen-xl">
-        <div className="relative w-full h-[40vh] min-h-[300px]">
+        <div className="relative w-full aspect-video md:h-[40vh] md:min-h-[300px]">
           <Image
             src={renungan.image}
             alt={`Banner image for ${renungan.title}`}
