@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { GeistSans } from 'geist/font/sans';
 import { Navbar } from '@/components/navbar';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   title: 'Renungan GKP Kampung Sawah',
@@ -16,8 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <Navbar />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
