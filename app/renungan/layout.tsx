@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export default function BlogLayout({
   children,
 }: {
@@ -7,22 +5,6 @@ export default function BlogLayout({
 }) {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-background border-b">
-        <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link
-            href="/"
-            className="text-xl md:text-2xl font-bold text-foreground"
-          >
-            GKP Kampung Sawah
-          </Link>
-          <Link
-            href="/"
-            className="text-foreground hover:text-primary transition-colors hidden md:inline-block"
-          >
-            Kembali ke beranda
-          </Link>
-        </nav>
-      </header>
       <main className="flex-grow">{children}</main>
       <footer className="bg-background border-t">
         <div className="container mx-auto px-4 py-4 text-center text-muted-foreground">
