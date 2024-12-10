@@ -7,6 +7,7 @@ import { Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { ModeToggle } from './ui/mode-toggle';
 
 const navItems = [
   { title: 'Home', href: '/' },
@@ -42,6 +43,7 @@ export function Navbar() {
           <span className="text-lg font-bold">Renungan Harian</span>
         </Link>
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+          <ModeToggle />
           {navItems.map((item, index) => (
             <Link
               key={index}
@@ -79,6 +81,7 @@ interface MobileNavProps {
 function MobileNav({ items, setIsOpen }: MobileNavProps) {
   return (
     <div className="flex flex-col space-y-4">
+      <ModeToggle />
       {items.map((item, index) => (
         <Link
           key={index}
