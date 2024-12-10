@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { formatDateToIndo } from '@/app/lib/utils';
-import { Quote } from '@/components/ui/quote';
+import { Quote } from '@/components/quote';
 
 interface Props {
   params: Promise<{ id: string }>;
