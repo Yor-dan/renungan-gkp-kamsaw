@@ -5,5 +5,5 @@ export type Renungan = {
   date: string;
   body: string;
   verse?: string;
-  verse_ref?: string;
+  ref?: string;
 };

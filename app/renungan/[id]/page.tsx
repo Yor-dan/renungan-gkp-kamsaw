@@ -46,7 +46,7 @@ export default async function Renungan(props: Props) {
         </time>
 
         {renungan.verse && (
-          <Quote quote={renungan.verse} quote_ref={renungan.verse_ref} />
+          <Quote quote={renungan.verse} quote_ref={renungan.ref} />
         )}
 
         {/* blog body */}
