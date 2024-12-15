@@ -1,12 +1,20 @@
-'use server';
-
 import { sql } from '@vercel/postgres';
 import Image from 'next/image';
 import KartuRenungan from '@/components/KartuRenungan';
 import LoadMoreButton from '@/components/LoadMoreButton';
+import { convertToNum } from './lib/utils';
 
-export default async function Home() {
-  const query = await sql`SELECT * FROM renungan ORDER BY date DESC LIMIT 7`;
+type HomePageProps = {
+  searchParams: Promise<{ [key: string]: string }>;
+};
+
+export default async function Home({ searchParams }: HomePageProps) {
+  const params = await searchParams;
+  const limit = convertToNum(params.limit, 6);
+
+  const query = await sql`SELECT * FROM renungan ORDER BY date DESC LIMIT ${
+    limit + 1
+  }`;
   const queryResult = query.rows;
   const content =
     queryResult.length === 0 ? (
@@ -19,7 +27,7 @@ export default async function Home() {
           Renungan Terbaru
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {queryResult.slice(0, 6).map((renungan) => (
+          {queryResult.slice(0, limit).map((renungan) => (
             <KartuRenungan
               key={renungan.id}
               id={renungan.id}
@@ -59,7 +67,7 @@ export default async function Home() {
       {/* Blog Posts Grid */}
       <section className="container mx-auto py-12 px-8">
         {content}
-        {queryResult.length > 6 && <LoadMoreButton />}
+        {queryResult.length > limit && <LoadMoreButton limit={limit} />}
       </section>
     </div>
   );

@@ -27,3 +27,11 @@ export const createExcerpt = (text: string, maxLength: number = 128) => {
   if (lastSpace === -1) return truncated + '...';
   return truncated.substring(0, lastSpace) + '...';
 };
+
+export const convertToNum = (
+  input: string,
+  defaultValue: number = 6
+): number => {
+  const parsed = parseInt(input, 10);
+  return isNaN(parsed) ? defaultValue : parsed;
+};
