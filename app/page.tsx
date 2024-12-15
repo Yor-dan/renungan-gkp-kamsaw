@@ -3,10 +3,35 @@
 import { sql } from '@vercel/postgres';
 import Image from 'next/image';
 import KartuRenungan from '@/components/KartuRenungan';
+import LoadMoreButton from '@/components/LoadMoreButton';
 
 export default async function Home() {
-  const query = await sql`SELECT * FROM renungan ORDER BY id`;
-  const arrayRenungan = query.rows;
+  const query = await sql`SELECT * FROM renungan ORDER BY date DESC LIMIT 7`;
+  const queryResult = query.rows;
+  const content =
+    queryResult.length === 0 ? (
+      <h3 className="text-xl md:text-2xl font-bold text-center mt-8">
+        Tidak ada renungan saat ini.
+      </h3>
+    ) : (
+      <>
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">
+          Renungan Terbaru
+        </h2>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {queryResult.slice(0, 6).map((renungan) => (
+            <KartuRenungan
+              key={renungan.id}
+              id={renungan.id}
+              image={renungan.image}
+              date={renungan.date}
+              title={renungan.title}
+              body={renungan.body}
+            />
+          ))}
+        </div>
+      </>
+    );
 
   return (
     <div className="min-h-screen bg-background">
@@ -33,21 +58,8 @@ export default async function Home() {
 
       {/* Blog Posts Grid */}
       <section className="container mx-auto py-12 px-8">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">
-          Renungan Terbaru
-        </h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {arrayRenungan.map((renungan) => (
-            <KartuRenungan
-              key={renungan.id}
-              id={renungan.id}
-              image={renungan.image}
-              date={renungan.date}
-              title={renungan.title}
-              body={renungan.body}
-            />
-          ))}
-        </div>
+        {content}
+        {queryResult.length > 6 && <LoadMoreButton />}
       </section>
     </div>
   );
