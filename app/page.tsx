@@ -1,5 +1,3 @@
-'use server';
-
 import { sql } from '@vercel/postgres';
 import Image from 'next/image';
 import KartuRenungan from '@/components/KartuRenungan';
