@@ -2,8 +2,7 @@
 
 import { sql } from '@vercel/postgres';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { formatDateToIndo } from './lib/utils';
+import KartuRenungan from '@/components/KartuRenungan';
 
 export default async function Home() {
   const query = await sql`SELECT * FROM renungan ORDER BY id`;
@@ -39,29 +38,14 @@ export default async function Home() {
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {arrayRenungan.map((renungan) => (
-            <Card href={`renungan/${renungan.id}`} key={renungan.id}>
-              <div className="relative h-64 w-full">
-                <Image
-                  src={renungan.image}
-                  alt={'renungan card thumbnail image'}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <CardContent className="flex-grow flex flex-col p-4">
-                <p className="text-sm text-muted-foreground mb-2">
-                  {formatDateToIndo(renungan.date)}
-                </p>
-                <CardHeader className="p-0">
-                  <CardTitle className="text-lg font-semibold mb-2">
-                    {renungan.title}
-                  </CardTitle>
-                </CardHeader>
-                <p className="text-muted-foreground text-sm">
-                  {renungan.body.slice(0, 128) + '...'}
-                </p>
-              </CardContent>
-            </Card>
+            <KartuRenungan
+              key={renungan.id}
+              id={renungan.id}
+              image={renungan.image}
+              date={renungan.date}
+              title={renungan.title}
+              body={renungan.body}
+            />
           ))}
         </div>
       </section>
