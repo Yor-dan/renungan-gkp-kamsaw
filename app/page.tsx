@@ -5,11 +5,12 @@ import LoadMoreButton from '@/components/LoadMoreButton';
 import { convertToNum } from './lib/utils';
 
 type HomePageProps = {
-  searchParams: { [key: string]: string };
+  searchParams: Promise<{ [key: string]: string }>;
 };
 
 export default async function Home({ searchParams }: HomePageProps) {
-  const limit = convertToNum(searchParams.limit, 6);
+  const params = await searchParams;
+  const limit = convertToNum(params.limit, 6);
 
   const query = await sql`SELECT * FROM renungan ORDER BY date DESC LIMIT ${
     limit + 1
