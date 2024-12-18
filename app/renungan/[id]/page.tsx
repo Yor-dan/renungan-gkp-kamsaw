@@ -51,7 +51,7 @@ export default async function Renungan({ params }: RenunganPageProps) {
         {/* blog body */}
         <div className="prose prose-stone dark:prose-invert">
           {renungan.body.split('  ').map((paragraph: string, index: number) => (
-            <p key={index} className="mb-4 md:text-lg">
+            <p key={index} className="mb-4 text-lg">
               {paragraph}
             </p>
           ))}
