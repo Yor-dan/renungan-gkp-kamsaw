@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { GeistSans } from 'geist/font/sans';
-import { Navbar } from '@/components/navbar';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
           {children}
         </ThemeProvider>
       </body>

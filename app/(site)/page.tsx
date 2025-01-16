@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import KartuRenungan from '@/components/KartuRenungan';
 import LoadMoreButton from '@/components/LoadMoreButton';
-import { convertToNum } from './lib/utils';
+import { convertToNum } from '@/app/lib/utils';
 
 type HomePageProps = {
   searchParams: Promise<{ [key: string]: string }>;
