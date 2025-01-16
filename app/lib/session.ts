@@ -56,5 +56,5 @@ export async function verifySession() {
 
 export async function deleteSession() {
   (await cookies()).delete(cookie.name);
-  redirect('/');
+  redirect('/admin/login');
 }
