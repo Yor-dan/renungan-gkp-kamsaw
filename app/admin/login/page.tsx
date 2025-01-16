@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { login } from '@/app/admin/login/actions';
 
 export default function AdminLogin() {
   return (
@@ -16,15 +17,15 @@ export default function AdminLogin() {
               Enter your credentials to gain access.
             </p>
           </div>
-          <form className="mt-8 space-y-6">
+          <form action={login} className="mt-8 space-y-6">
             <div className="space-y-4">
               <div>
-                <Label htmlFor="email">Username</Label>
+                <Label htmlFor="username">Username</Label>
                 <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
                   required
                   className="mt-1 transition-all duration-200 focus:ring-2 focus:ring-primary"
                 />
