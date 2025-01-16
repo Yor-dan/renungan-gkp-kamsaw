@@ -1,6 +1,7 @@
 'use server';
 
 import { createSession } from '@/app/lib/session';
+import { deleteSession } from '@/app/lib/session';
 
 export async function login(formData: FormData) {
   const username = formData.get('username');
@@ -12,4 +13,8 @@ export async function login(formData: FormData) {
   ) {
     await createSession(username as string);
   }
+}
+
+export async function logout() {
+  await deleteSession();
 }

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { LogOut, Loader2 } from 'lucide-react';
 import { useFormStatus } from 'react-dom';
 import { useTransition } from 'react';
-import logout from '@/app/lib/logout';
+import { logout } from '@/app/admin/actions';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
