@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { login } from '@/app/admin/login/actions';
+import { Input } from '@/components/ui/input';
+import { login } from '@/app/admin/actions';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export default function AdminLogin() {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center h-screen">
       {/* Login form */}
-      <div className="flex items-center justify-center p-8 bg-background md:w-1/2">
+      <div className="flex items-center justify-center pb-12 bg-background md:w-1/2">
         <div className="w-full max-w-md space-y-8">
           <div className="text-center">
             <h2 className="mt-6 text-3xl font-bold tracking-tight">
@@ -43,9 +43,9 @@ export default function AdminLogin() {
               </div>
             </div>
             <div>
-              <Button type="submit" className="w-full">
+              <SubmitButton loadingText="Signing in..." className="w-full">
                 Sign in
-              </Button>
+              </SubmitButton>
             </div>
           </form>
         </div>
