@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres';
 import KartuRenungan from '@/components/KartuRenungan';
 import LoadMoreButton from '@/components/LoadMoreButton';
-import { convertToNum } from './lib/utils';
+import { convertToNum } from '@/app/lib/utils';
 
 type HomePageProps = {
   searchParams: Promise<{ [key: string]: string }>;
@@ -11,9 +11,9 @@ export default async function Home({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const limit = convertToNum(params.limit, 6);
 
-  const query = await sql`SELECT * FROM renungan ORDER BY date DESC LIMIT ${
-    limit + 1
-  }`;
+  const query = await sql`SELECT * FROM renungan
+    WHERE deleted_at IS NULL
+    ORDER BY date DESC LIMIT ${limit + 1}`;
   const queryResult = query.rows;
   const content =
     queryResult.length === 0 ? (

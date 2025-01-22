@@ -6,11 +6,13 @@ import Image from 'next/image';
 import { formatDateToIndo } from '@/app/lib/utils';
 import { Quote } from '@/components/quote';
 
-type RenunganPageProps = {
+type PostPreviewPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function Renungan({ params }: RenunganPageProps) {
+export default async function PostPreviewPage({
+  params,
+}: PostPreviewPageProps) {
   const { id } = await params;
 
   const query = await sql`SELECT * FROM renungan WHERE id = ${id}`;
