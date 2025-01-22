@@ -14,7 +14,7 @@ export default async function Renungan({ params }: RenunganPageProps) {
   const { id } = await params;
 
   const query =
-    await sql`SELECT * FROM renungan WHERE id = ${id} AND deleted_at IS NULL`;
+    await sql`SELECT * FROM posts WHERE id = ${id} AND deleted_at IS NULL`;
   const renungan = query.rows[0];
 
   if (!renungan) {
@@ -26,7 +26,7 @@ export default async function Renungan({ params }: RenunganPageProps) {
       <div className="w-full max-w-screen-xl">
         <div className="relative w-full aspect-video md:h-[40vh] md:min-h-[300px]">
           <Image
-            src={renungan.image}
+            src={renungan.image_url}
             alt={`Banner image for ${renungan.title}`}
             fill
             className="object-cover"
@@ -42,7 +42,7 @@ export default async function Renungan({ params }: RenunganPageProps) {
 
         {/* blog date */}
         <time className="md:text-base text-muted-foreground mb-8 block">
-          {formatDateToIndo(renungan.date)}
+          {formatDateToIndo(renungan.publish_date)}
         </time>
 
         {renungan.verse && (

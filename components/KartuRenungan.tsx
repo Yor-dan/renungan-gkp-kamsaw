@@ -15,7 +15,7 @@ export default function KartuRenungan({
   body,
 }: KartuRenunganProps) {
   return (
-    <Link href={`renungan/${id}`}>
+    <Link href={`posts/${id}`}>
       <Card className="shadow h-full overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
         <div className="relative h-64 w-full">
           <Image

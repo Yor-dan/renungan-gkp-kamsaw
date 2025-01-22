@@ -11,12 +11,12 @@ export default async function Home({ searchParams }: HomePageProps) {
   const params = await searchParams;
   const limit = convertToNum(params.limit, 6);
 
-  const query = await sql`SELECT * FROM renungan
+  const query = await sql`SELECT * FROM posts
     WHERE deleted_at IS NULL
-    ORDER BY date DESC LIMIT ${limit + 1}`;
-  const queryResult = query.rows;
+    ORDER BY publish_date DESC LIMIT ${limit + 1}`;
+  const posts = query.rows;
   const content =
-    queryResult.length === 0 ? (
+    posts.length === 0 ? (
       <h3 className="text-xl md:text-2xl font-bold text-center mt-8">
         Tidak ada renungan saat ini.
       </h3>
@@ -26,14 +26,14 @@ export default async function Home({ searchParams }: HomePageProps) {
           Renungan Terbaru
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {queryResult.slice(0, limit).map((renungan) => (
+          {posts.slice(0, limit).map((post) => (
             <KartuRenungan
-              key={renungan.id}
-              id={renungan.id}
-              image={renungan.image}
-              date={renungan.date}
-              title={renungan.title}
-              body={renungan.body}
+              key={post.id}
+              id={post.id}
+              image={post.image_url}
+              date={post.publish_date}
+              title={post.title}
+              body={post.body}
             />
           ))}
         </div>
@@ -64,7 +64,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       {/* Blog Posts Grid */}
       <section className="container mx-auto py-12 px-8">
         {content}
-        {queryResult.length > limit && <LoadMoreButton limit={limit} />}
+        {posts.length > limit && <LoadMoreButton limit={limit} />}
       </section>
     </div>
   );
