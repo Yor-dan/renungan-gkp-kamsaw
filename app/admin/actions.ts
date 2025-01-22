@@ -23,9 +23,19 @@ export async function logout() {
 export async function deletePost(id: number) {
   try {
     await sql`UPDATE renungan SET deleted_at = now() WHERE id = ${id}`;
-    return { success: true };
+    return { success: true, message: 'Post deleted successfully' };
   } catch (error) {
     console.error(error);
-    return { success: false, error: 'Failed to delete the post' };
+    return { success: false, message: 'Failed to delete the post' };
+  }
+}
+
+export async function publishPost(id: number) {
+  try {
+    await sql`UPDATE renungan SET deleted_at = NULL WHERE id = ${id}`;
+    return { success: true, message: 'Post published successfully' };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: 'Failed to publish the post' };
   }
 }

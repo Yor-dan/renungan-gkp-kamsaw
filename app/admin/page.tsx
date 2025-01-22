@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/tooltip';
 import DeletePostButton from '@/components/DeletePostButton';
 import { Toaster } from '@/components/ui/toaster';
+import PublishPostButton from '@/components/PublishPostButton';
 
 export default async function AdminPage() {
   const query = await sql`SELECT * FROM renungan
@@ -82,7 +83,11 @@ export default async function AdminPage() {
                             </TooltipTrigger>
                             <TooltipContent>Edit</TooltipContent>
                           </Tooltip>
-                          <DeletePostButton postId={post.id} />
+                          {post.deleted_at ? (
+                            <PublishPostButton postId={post.id} />
+                          ) : (
+                            <DeletePostButton postId={post.id} />
+                          )}
                         </div>
                       </TooltipProvider>
                     </TableCell>
