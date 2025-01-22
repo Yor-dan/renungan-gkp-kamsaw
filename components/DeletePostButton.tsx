@@ -30,6 +30,7 @@ export default function DeletePostButton({ postId }: DeletePostButtonProps) {
     if (result.success) {
       router.refresh();
       toast({
+        variant: 'success',
         title: 'Success',
         description: result.message,
       });
