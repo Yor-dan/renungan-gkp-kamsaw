@@ -3,26 +3,9 @@ import { cookies } from 'next/headers';
 import { decrypt } from '@/app/lib/session';
 
 export default async function middleware(req: NextRequest) {
-  // 1. check for protected routes
-  const protectedRoutes = ['/admin'];
   const currentPath = req.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(currentPath);
 
-  if (isProtectedRoute) {
-    // 2. check for valid session
-    const cookie = (await cookies()).get('session')?.value;
-    const session = await decrypt(cookie as string);
-
-    // 3. redirect unauthed users
-    if (!session?.userName) {
-      return NextResponse.redirect(new URL('/admin/login', req.nextUrl));
-    }
-
-    // 4. render route
-    return NextResponse.next();
-  }
-
-  // check user session on login page
+  // 1. Special handling for login page
   if (currentPath === '/admin/login') {
     const cookie = (await cookies()).get('session')?.value;
     const session = await decrypt(cookie as string);
@@ -33,4 +16,28 @@ export default async function middleware(req: NextRequest) {
 
     return NextResponse.next();
   }
+
+  // 2. Check for protected routes
+  const protectedRoutes = ['/admin', '/admin/preview'];
+  const isProtectedRoute = protectedRoutes.some(
+    (route) => currentPath === route || currentPath.startsWith(`${route}/`)
+  );
+
+  if (isProtectedRoute) {
+    // 3. Check for valid session
+    const cookie = (await cookies()).get('session')?.value;
+    const session = await decrypt(cookie as string);
+
+    // 4. Redirect unauthed users
+    if (!session?.userName) {
+      return NextResponse.redirect(new URL('/admin/login', req.nextUrl));
+    }
+
+    // 5. Render route for authed users
+    return NextResponse.next();
+  }
 }
+
+export const config = {
+  matcher: ['/admin/:path*', '/preview/:path*'],
+};

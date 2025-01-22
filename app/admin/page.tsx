@@ -64,7 +64,13 @@ export default async function AdminPage() {
               <TableBody>
                 {posts.map((post) => (
                   <TableRow key={post.id}>
-                    <TableCell className="font-medium">{post.title}</TableCell>
+                    <TableCell className="font-medium">
+                      <Button asChild variant="link" className="p-0">
+                        <Link href={`admin/preview/${post.id}`}>
+                          {post.title}
+                        </Link>
+                      </Button>
+                    </TableCell>
                     <TableCell>{formatDateToIndo(post.date)}</TableCell>
                     <TableCell>
                       {post.deleted_at ? 'Deleted' : 'Published'}
