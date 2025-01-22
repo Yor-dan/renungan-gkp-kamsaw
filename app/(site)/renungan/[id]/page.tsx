@@ -13,7 +13,8 @@ type RenunganPageProps = {
 export default async function Renungan({ params }: RenunganPageProps) {
   const { id } = await params;
 
-  const query = await sql`SELECT * FROM renungan WHERE id = ${id}`;
+  const query =
+    await sql`SELECT * FROM renungan WHERE id = ${id} AND deleted_at IS NULL`;
   const renungan = query.rows[0];
 
   if (!renungan) {

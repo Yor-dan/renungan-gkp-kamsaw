@@ -1,5 +1,6 @@
 'use server';
 
+import { sql } from '@vercel/postgres';
 import { createSession } from '@/app/lib/session';
 import { deleteSession } from '@/app/lib/session';
 
@@ -17,4 +18,14 @@ export async function login(formData: FormData) {
 
 export async function logout() {
   await deleteSession();
+}
+
+export async function deletePost(id: number) {
+  try {
+    await sql`UPDATE renungan SET deleted_at = now() WHERE id = ${id}`;
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: 'Failed to delete the post' };
+  }
 }
