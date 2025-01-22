@@ -3,6 +3,7 @@
 import { sql } from '@vercel/postgres';
 import { createSession } from '@/app/lib/session';
 import { deleteSession } from '@/app/lib/session';
+import { revalidatePath } from 'next/cache';
 
 export async function login(formData: FormData) {
   const username = formData.get('username');
@@ -23,6 +24,7 @@ export async function logout() {
 export async function deletePost(id: number) {
   try {
     await sql`UPDATE renungan SET deleted_at = now() WHERE id = ${id}`;
+    revalidatePath('/admin');
     return { success: true, message: 'Post deleted successfully' };
   } catch (error) {
     console.error(error);
@@ -33,6 +35,7 @@ export async function deletePost(id: number) {
 export async function publishPost(id: number) {
   try {
     await sql`UPDATE renungan SET deleted_at = NULL WHERE id = ${id}`;
+    revalidatePath('/admin');
     return { success: true, message: 'Post published successfully' };
   } catch (error) {
     console.error(error);
