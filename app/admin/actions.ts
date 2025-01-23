@@ -23,7 +23,7 @@ export async function logout() {
 
 export async function deletePost(id: number) {
   try {
-    await sql`UPDATE renungan SET deleted_at = now() WHERE id = ${id}`;
+    await sql`UPDATE posts SET deleted_at = now() WHERE id = ${id}`;
     revalidatePath('/admin');
     return { success: true, message: 'Post deleted successfully' };
   } catch (error) {
@@ -34,7 +34,7 @@ export async function deletePost(id: number) {
 
 export async function publishPost(id: number) {
   try {
-    await sql`UPDATE renungan SET deleted_at = NULL WHERE id = ${id}`;
+    await sql`UPDATE posts SET deleted_at = NULL WHERE id = ${id}`;
     revalidatePath('/admin');
     return { success: true, message: 'Post published successfully' };
   } catch (error) {

@@ -26,8 +26,8 @@ import { Toaster } from '@/components/ui/toaster';
 import PublishPostButton from '@/components/PublishPostButton';
 
 export default async function AdminPage() {
-  const query = await sql`SELECT * FROM renungan
-    ORDER BY date DESC`;
+  const query = await sql`SELECT * FROM posts
+    ORDER BY publish_date DESC`;
   const posts = query.rows;
 
   return (
@@ -71,7 +71,7 @@ export default async function AdminPage() {
                         </Link>
                       </Button>
                     </TableCell>
-                    <TableCell>{formatDateToIndo(post.date)}</TableCell>
+                    <TableCell>{formatDateToIndo(post.publish_date)}</TableCell>
                     <TableCell>
                       {post.deleted_at ? 'Deleted' : 'Published'}
                     </TableCell>

@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'wdo3jaxn87attzgi.public.blob.vercel-storage.com',
-        pathname: '/renungan-card-images/*',
+        pathname: '/posts-images/*',
         port: '',
       },
     ],
