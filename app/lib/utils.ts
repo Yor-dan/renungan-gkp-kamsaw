@@ -1,3 +1,5 @@
+import sharp from 'sharp';
+
 export const formatDateToIndo = (date: string) => {
   const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
   const months = [
@@ -35,3 +37,24 @@ export const convertToNum = (
   const parsed = parseInt(input, 10);
   return isNaN(parsed) ? defaultValue : parsed;
 };
+
+export async function compressImage(file: File): Promise<Buffer> {
+  const buffer = await file.arrayBuffer();
+  let quality = 80;
+  let outputBuffer: Buffer;
+
+  do {
+    outputBuffer = await sharp(Buffer.from(buffer))
+      .resize(1200, 630, { fit: 'inside', withoutEnlargement: true })
+      .avif({ quality })
+      .toBuffer();
+
+    if (outputBuffer.length <= 200 * 1024) {
+      return outputBuffer;
+    }
+
+    quality -= 5;
+  } while (quality > 10);
+
+  throw new Error('Unable to process image to under 200KB');
+}
