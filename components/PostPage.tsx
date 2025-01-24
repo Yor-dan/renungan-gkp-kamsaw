@@ -5,7 +5,7 @@ import { Post } from '@/app/lib/definitions';
 import { Quote } from '@/components/quote';
 import { formatDateToIndo } from '@/app/lib/utils';
 
-type PostPageProps = { publish_date: string } & Omit<
+export type PostPageProps = { publish_date: string } & Omit<
   Post,
   'id' | 'publish_date' | 'deleted_at'
 >;
