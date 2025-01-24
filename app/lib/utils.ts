@@ -1,3 +1,4 @@
+import { put } from '@vercel/blob';
 import sharp from 'sharp';
 
 export const formatDateToIndo = (date: string) => {
@@ -57,4 +58,27 @@ export async function compressImage(file: File): Promise<Buffer> {
   } while (quality > 10);
 
   throw new Error('Unable to process image to under 200KB');
+}
+
+export async function uploadImage(image: File) {
+  try {
+    const processedImageBuffer = await compressImage(image);
+
+    // Convert the buffer to a Blob
+    const processedImageBlob = new Blob([processedImageBuffer], {
+      type: 'image/avif',
+    });
+
+    // Upload to Vercel Blob storage
+    const { url } = await put(
+      `posts-images/${image.name}.avif`,
+      processedImageBlob,
+      { access: 'public' }
+    );
+
+    return url;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
 }
