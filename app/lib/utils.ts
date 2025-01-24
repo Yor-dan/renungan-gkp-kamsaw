@@ -39,6 +39,10 @@ export const convertToNum = (
   return isNaN(parsed) ? defaultValue : parsed;
 };
 
+export function addLineBreaks(text: string): string {
+  return text.replace(/\n/g, '  ');
+}
+
 export async function compressImage(file: File): Promise<Buffer> {
   const buffer = await file.arrayBuffer();
   let quality = 80;

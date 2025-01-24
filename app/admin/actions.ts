@@ -1,11 +1,11 @@
 'use server';
 
 import { sql } from '@vercel/postgres';
-import { createSession } from '@/app/lib/session';
-import { deleteSession } from '@/app/lib/session';
 import { revalidatePath } from 'next/cache';
 import { NewPost } from '@/app/lib/definitions';
-// import { nanoid } from 'nanoid';
+import { createSession, deleteSession } from '@/app/lib/session';
+import { addLineBreaks, uploadImage } from '@/app/lib/utils';
+import { nanoid } from 'nanoid';
 
 export async function login(formData: FormData) {
   const username = formData.get('username');
@@ -46,6 +46,7 @@ export async function publishPost(id: number) {
 }
 
 export async function createPost({
+  image,
   title,
   publish_date,
   verse,
@@ -53,17 +54,14 @@ export async function createPost({
   body,
 }: NewPost) {
   try {
-    console.log('New Post Data:');
-    console.log('Title:', title);
-    console.log('Publish Date:', publish_date);
-    console.log('Body:', body);
-    console.log('Verse:', verse);
-    console.log('Book:', book);
+    const imageUrl = image && (await uploadImage(image));
 
-    // await sql`
-    //   INSERT INTO posts (title, date, verse, ref, body, banner)
-    //   VALUES (${nanoid()}, ${title}, ${date}, ${verse}, ${ref}, ${body}, ${banner})
-    // `;
+    await sql`
+      INSERT INTO posts (id, image_url, title, publish_date, verse, book, body)
+      VALUES (${nanoid()}, ${imageUrl}, ${title}, ${publish_date.toISOString()}, ${verse}, ${book}, ${addLineBreaks(
+      body
+    )})
+    `;
 
     revalidatePath('/admin');
     return { success: true };

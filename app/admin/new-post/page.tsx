@@ -45,9 +45,9 @@ export default function NewPostPage() {
       image,
       title,
       publish_date: publishDate,
-      body,
       verse,
       book,
+      body,
     };
 
     startTransition(async () => {
@@ -138,7 +138,7 @@ export default function NewPostPage() {
               id="verse"
               value={verse}
               onChange={(e) => setVerse(e.target.value)}
-              placeholder="Enter a verse (optional)"
+              placeholder="E.g. We love because he first loved us."
               className="mt-1"
             />
           </div>
@@ -149,13 +149,13 @@ export default function NewPostPage() {
               id="book"
               value={book}
               onChange={(e) => setBook(e.target.value)}
-              placeholder="Enter the book (optional)"
+              placeholder="E.g. 1 John 4:19"
               className="mt-1"
             />
           </div>
 
           <div>
-            <Label htmlFor="body">Content</Label>
+            <Label htmlFor="body">Body</Label>
             <Textarea
               id="body"
               value={body}
