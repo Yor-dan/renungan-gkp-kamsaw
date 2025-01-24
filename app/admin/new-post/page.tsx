@@ -2,6 +2,10 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
+import { CalendarIcon, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
@@ -12,13 +16,9 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
-import { CalendarIcon, Loader2 } from 'lucide-react';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
-import ImageInput from '@/components/ImageInput';
-import { createPost } from '@/app/admin/actions';
 import { NewPost } from '@/app/lib/definitions';
+import { createPost } from '@/app/admin/actions';
+import ImageInput from '@/components/ImageInput';
 
 export default function NewPostPage() {
   const [image, setImage] = useState<File | null>(null);
