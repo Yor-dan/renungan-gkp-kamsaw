@@ -12,5 +12,5 @@ export type Post = {
 
 export type NewPost = { image: File } & Omit<
   Post,
-  'id' | 'image_url' | 'deleted_at'
+  'id' | 'image_url' | 'deleted_at' | 'slug'
 >;

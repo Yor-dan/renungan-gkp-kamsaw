@@ -44,7 +44,7 @@ export default function NewPostPage() {
     const newPost: NewPost = {
       image,
       title,
-      publish_date: publishDate,
+      publish_date: publishDate.toISOString(),
       verse,
       book,
       body,
