@@ -58,7 +58,7 @@ export async function createPost({
 
     await sql`
       INSERT INTO posts (id, image_url, title, publish_date, verse, book, body)
-      VALUES (${nanoid()}, ${imageUrl}, ${title}, ${publish_date.toISOString()}, ${verse}, ${book}, ${addLineBreaks(
+      VALUES (${nanoid()}, ${imageUrl}, ${title}, ${publish_date}, ${verse}, ${book}, ${addLineBreaks(
       body
     )})
     `;

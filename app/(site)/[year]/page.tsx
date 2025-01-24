@@ -2,7 +2,8 @@
 
 import { sql } from '@vercel/postgres';
 import { notFound } from 'next/navigation';
-import PostPage, { PostPageProps } from '@/components/PostPage';
+import { Post } from '@/app/lib/definitions';
+import PostPage from '@/components/PostPage';
 
 type PostPageYearProps = {
   params: Promise<{ year: number }>;
@@ -19,7 +20,7 @@ export default async function PostPageYear({ params }: PostPageYearProps) {
     ORDER BY publish_date DESC
     LIMIT 1
   `;
-  const post = query.rows[0] as PostPageProps;
+  const post: Post = query.rows[0] as Post;
 
   if (!post) {
     notFound();

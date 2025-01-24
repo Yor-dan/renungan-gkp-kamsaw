@@ -4,10 +4,7 @@ import { Post } from '@/app/lib/definitions';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { formatDateToIndo, createExcerpt } from '@/app/lib/utils';
 
-type PostCardProps = { publish_date: string } & Omit<
-  Post,
-  'publish_date' | 'verse' | 'book' | 'deleted_at'
->;
+type PostCardProps = Omit<Post, 'verse' | 'book' | 'deleted_at'>;
 
 export default function PostCard({
   id,
