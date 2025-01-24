@@ -4,22 +4,25 @@ import { Post } from '@/app/lib/definitions';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { formatDateToIndo, createExcerpt } from '@/app/lib/utils';
 
-type PostCardProps = Omit<Post, 'verse' | 'book' | 'deleted_at'>;
+type PostCardProps = Omit<Post, 'id' | 'verse' | 'book' | 'deleted_at'>;
 
 export default function PostCard({
-  id,
+  slug,
   image_url,
   publish_date,
   title,
   body,
 }: PostCardProps) {
+  const postYear = new Date(publish_date).getFullYear();
+  const postMonth = new Date(publish_date).getMonth() + 1;
+
   return (
-    <Link href={`posts/${id}`}>
+    <Link href={`/${postYear}/${postMonth}/${slug}`}>
       <Card className="shadow h-full overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
         <div className="relative h-64 w-full">
           <Image
             src={image_url}
-            alt={'gambar thumbnail kartu renungan'}
+            alt={'post card image'}
             fill
             className="object-cover"
           />

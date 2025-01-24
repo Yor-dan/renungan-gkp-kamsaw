@@ -7,6 +7,7 @@ export type Post = {
   verse?: string;
   book?: string;
   deleted_at?: string;
+  slug: string;
 };
 
 export type NewPost = { image: File } & Omit<

@@ -29,7 +29,7 @@ export default async function Home({ searchParams }: HomePageProps) {
           {posts.slice(0, limit).map((post) => (
             <PostCard
               key={post.id}
-              id={post.id}
+              slug={post.slug}
               image_url={post.image_url}
               publish_date={post.publish_date}
               title={post.title}
