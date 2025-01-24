@@ -1,9 +1,12 @@
-export type Renungan = {
-  id: number;
-  image: string;
+export type Post = {
+  id: string;
+  image_url?: string;
   title: string;
-  date: string;
+  publish_date: Date;
   body: string;
   verse?: string;
-  ref?: string;
+  book?: string;
+  deleted_at?: Date;
 };
+
+export type NewPost = { image: File | null } & Omit<Post, 'id' | 'deleted_at'>;

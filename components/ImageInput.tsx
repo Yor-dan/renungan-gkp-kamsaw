@@ -3,11 +3,11 @@ import { ImageIcon, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
-interface BannerImageUploadProps {
+type ImageInputProps = {
   onImageChange: (file: File | null) => void;
-}
+};
 
-export function BannerImageUpload({ onImageChange }: BannerImageUploadProps) {
+export default function ImageInput({ onImageChange }: ImageInputProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
