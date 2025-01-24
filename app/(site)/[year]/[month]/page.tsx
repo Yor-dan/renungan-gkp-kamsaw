@@ -5,21 +5,22 @@ import { notFound } from 'next/navigation';
 import { Post } from '@/app/lib/definitions';
 import PostPage from '@/components/PostPage';
 
-type PostPageYearProps = {
-  params: Promise<{ month: number }>;
+type PostPageMonthProps = {
+  params: Promise<{ year: number; month: number }>;
 };
 
-export default async function PostPageYear({ params }: PostPageYearProps) {
-  const { month } = await params;
+export default async function PostPageMonth({ params }: PostPageMonthProps) {
+  const { year, month } = await params;
 
   const query = await sql`
-    SELECT *
-    FROM posts
-    WHERE EXTRACT(MONTH FROM publish_date) = ${month}
-      AND deleted_at IS NULL
-    ORDER BY publish_date DESC
-    LIMIT 1
-  `;
+  SELECT *
+  FROM posts
+  WHERE EXTRACT(YEAR FROM publish_date) = ${year}
+    AND EXTRACT(MONTH FROM publish_date) = ${month}
+    AND deleted_at IS NULL
+  ORDER BY publish_date DESC
+  LIMIT 1
+`;
   const post: Post = query.rows[0] as Post;
 
   if (!post) {
