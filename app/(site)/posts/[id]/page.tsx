@@ -6,11 +6,11 @@ import Image from 'next/image';
 import { formatDateToIndo } from '@/app/lib/utils';
 import { Quote } from '@/components/quote';
 
-type RenunganPageProps = {
+type PostPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export default async function Renungan({ params }: RenunganPageProps) {
+export default async function PostPage({ params }: PostPageProps) {
   const { id } = await params;
 
   const query =
