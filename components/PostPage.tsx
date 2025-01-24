@@ -5,7 +5,7 @@ import { Post } from '@/app/lib/definitions';
 import { Quote } from '@/components/quote';
 import { formatDateToIndo } from '@/app/lib/utils';
 
-export type PostPageProps = Omit<Post, 'id' | 'deleted_at'>;
+type PostPageProps = Omit<Post, 'id' | 'deleted_at' | 'slug'>;
 
 export default async function PostPage({
   image_url,
