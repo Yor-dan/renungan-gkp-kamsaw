@@ -15,9 +15,9 @@ export default async function Renungan({ params }: RenunganPageProps) {
 
   const query =
     await sql`SELECT * FROM posts WHERE id = ${id} AND deleted_at IS NULL`;
-  const renungan = query.rows[0];
+  const post = query.rows[0];
 
-  if (!renungan) {
+  if (!post) {
     notFound();
   }
 
@@ -26,8 +26,8 @@ export default async function Renungan({ params }: RenunganPageProps) {
       <div className="w-full max-w-screen-xl">
         <div className="relative w-full aspect-video md:h-[40vh] md:min-h-[300px]">
           <Image
-            src={renungan.image_url}
-            alt={`Banner image for ${renungan.title}`}
+            src={post.image_url}
+            alt={`Banner image for ${post.title}`}
             fill
             className="object-cover"
             priority
@@ -35,23 +35,21 @@ export default async function Renungan({ params }: RenunganPageProps) {
         </div>
       </div>
       <div className="w-full max-w-prose px-4 py-8">
-        {/* blog title */}
+        {/* post title */}
         <h1 className="text-4xl font-bold mb-4 text-foreground">
-          {renungan.title}
+          {post.title}
         </h1>
 
-        {/* blog date */}
+        {/* post publish date */}
         <time className="md:text-base text-muted-foreground mb-8 block">
-          {formatDateToIndo(renungan.publish_date)}
+          {formatDateToIndo(post.publish_date)}
         </time>
 
-        {renungan.verse && (
-          <Quote quote={renungan.verse} quote_ref={renungan.ref} />
-        )}
+        {post.verse && <Quote quote={post.verse} quote_ref={post.book} />}
 
-        {/* blog body */}
+        {/* post body */}
         <div className="prose prose-stone dark:prose-invert">
-          {renungan.body.split('  ').map((paragraph: string, index: number) => (
+          {post.body.split('  ').map((paragraph: string, index: number) => (
             <p key={index} className="mb-4 text-lg">
               {paragraph}
             </p>
