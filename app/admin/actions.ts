@@ -55,12 +55,16 @@ export async function createPost({
 }: NewPost) {
   try {
     const imageUrl = await uploadImage(image);
+    const slug = title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-');
 
     await sql`
-      INSERT INTO posts (id, image_url, title, publish_date, verse, book, body)
+      INSERT INTO posts (id, image_url, title, publish_date, verse, book, body, slug)
       VALUES (${nanoid()}, ${imageUrl}, ${title}, ${publish_date}, ${verse}, ${book}, ${addLineBreaks(
       body
-    )})
+    )}, ${slug})
     `;
 
     revalidatePath('/admin');
