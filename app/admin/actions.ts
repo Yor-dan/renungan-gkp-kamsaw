@@ -54,7 +54,7 @@ export async function createPost({
   body,
 }: NewPost) {
   try {
-    const imageUrl = image && (await uploadImage(image));
+    const imageUrl = await uploadImage(image);
 
     await sql`
       INSERT INTO posts (id, image_url, title, publish_date, verse, book, body)

@@ -1,25 +1,27 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Renungan } from '@/app/lib/definitions';
+import { Post } from '@/app/lib/definitions';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { createExcerpt } from '@/app/lib/utils';
-import { formatDateToIndo } from '@/app/lib/utils';
+import { formatDateToIndo, createExcerpt } from '@/app/lib/utils';
 
-type KartuRenunganProps = Omit<Renungan, 'verse' | 'verse_ref'>;
+type PostCardProps = { publish_date: string } & Omit<
+  Post,
+  'publish_date' | 'verse' | 'book' | 'deleted_at'
+>;
 
-export default function KartuRenungan({
+export default function PostCard({
   id,
-  image,
-  date,
+  image_url,
+  publish_date,
   title,
   body,
-}: KartuRenunganProps) {
+}: PostCardProps) {
   return (
     <Link href={`posts/${id}`}>
       <Card className="shadow h-full overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
         <div className="relative h-64 w-full">
           <Image
-            src={image}
+            src={image_url}
             alt={'gambar thumbnail kartu renungan'}
             fill
             className="object-cover"
@@ -27,7 +29,7 @@ export default function KartuRenungan({
         </div>
         <CardContent className="flex-grow flex flex-col p-4">
           <p className="text-sm text-muted-foreground mb-2">
-            {formatDateToIndo(date)}
+            {formatDateToIndo(publish_date)}
           </p>
           <CardHeader className="p-0">
             <CardTitle className="text-lg font-semibold mb-2">

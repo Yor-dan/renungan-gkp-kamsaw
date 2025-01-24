@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres';
-import KartuRenungan from '@/components/KartuRenungan';
+import PostCard from '@/components/PostCard';
 import LoadMoreButton from '@/components/LoadMoreButton';
 import { convertToNum } from '@/app/lib/utils';
 
@@ -27,11 +27,11 @@ export default async function Home({ searchParams }: HomePageProps) {
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.slice(0, limit).map((post) => (
-            <KartuRenungan
+            <PostCard
               key={post.id}
               id={post.id}
-              image={post.image_url}
-              date={post.publish_date}
+              image_url={post.image_url}
+              publish_date={post.publish_date}
               title={post.title}
               body={post.body}
             />

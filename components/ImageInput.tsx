@@ -32,12 +32,13 @@ export default function ImageInput({ onImageChange }: ImageInputProps) {
         onChange={handleFileChange}
         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
         accept="image/*"
+        required
       />
       {previewUrl ? (
         <>
           <Image
             src={previewUrl || '/placeholder.svg'}
-            alt="Preview"
+            alt="image preview"
             className="absolute inset-0 w-full h-full object-cover"
             fill
           />

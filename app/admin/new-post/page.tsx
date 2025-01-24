@@ -32,7 +32,7 @@ export default function NewPostPage() {
   const { toast } = useToast();
 
   const handleSubmit = async () => {
-    if (!title || !publishDate || !body) {
+    if (!image || !title || !publishDate || !body) {
       toast({
         variant: 'destructive',
         title: 'Error',
