@@ -28,7 +28,7 @@ export default async function PostPreviewPage({
         <div className="relative w-full aspect-video md:h-[40vh] md:min-h-[300px]">
           <Image
             src={post.image_url}
-            alt={`Banner image for ${post.title}`}
+            alt={`post image`}
             fill
             className="object-cover"
             priority
@@ -46,7 +46,7 @@ export default async function PostPreviewPage({
           {formatDateToIndo(post.publish_date)}
         </time>
 
-        {post.verse && <Quote quote={post.verse} quote_ref={post.ref} />}
+        {post.verse && <Quote quote={post.verse} quote_ref={post.book} />}
 
         {/* blog body */}
         <div className="prose prose-stone dark:prose-invert">
